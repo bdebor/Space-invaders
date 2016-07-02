@@ -6,12 +6,18 @@
 		var gameSize = {x: canvas.width, y: canvas.height};
 
 		this.bodies = createInvaders(this).concat([new Player(this, gameSize)]); // !!!
-		
+
 		var self = this; // ???
 		var tick = function(){
-			self.update();
-			self.draw(screen, gameSize);
-			requestAnimationFrame(tick);
+			if(self.isGameOver()){
+				screen.font = "30px Arial";
+				screen.textAlign = "center";
+				screen.fillText('Game over', gameSize.x/2, gameSize.y/2);
+			}else{
+				self.update();
+				self.draw(screen, gameSize);
+				requestAnimationFrame(tick);
+			}
 		};
 		tick();
 	};
@@ -51,6 +57,12 @@
 						b.center.y > invader.center.y &&
 						b.center.x - invader.center.x < invader.size.x;
 			}).length > 0;
+		},
+
+		isGameOver: function(){
+			return this.bodies.filter(function(b){
+					return 	(b instanceof Player)
+				}).length == 0;
 		}
 	};
 
