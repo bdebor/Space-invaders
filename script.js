@@ -15,6 +15,8 @@
 				screen.textAlign = "center";
 				screen.fillText('Game over', gameSize.x/2, gameSize.y/2);
 			}else{
+				self.score = (24 - self.invadersNumber());
+				displayScore(self.score);
 				self.update();
 				self.draw(screen, gameSize);
 				requestAnimationFrame(tick);
@@ -63,6 +65,12 @@
 			return this.bodies.filter(function(b){
 					return 	(b instanceof Player)
 				}).length == 0;
+		},
+
+		invadersNumber: function(){
+			return this.bodies.filter(function(b){
+					return 	(b instanceof Invader)
+				}).length;
 		}
 	};
 
@@ -139,7 +147,7 @@
 			invaders.push(new Invader(game, {x: x, y: y}));
 		}
 		return invaders; // ???
-	}
+	};
 
 	var drawRect = function(screen, body){
 		screen.fillRect(
@@ -177,6 +185,11 @@
 			b1.center.y - b1.size.y/2 >	b2.center.y + b2.size.y/2 ||
 			b1.center.y + b1.size.y/2 <	b2.center.y - b2.size.y/2
 		);
+	};
+
+	var $score = document.getElementById('score');
+	var displayScore = function(score){
+		$score.innerHTML = score;
 	};
 
 	window.onload = function(){
