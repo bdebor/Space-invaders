@@ -4,6 +4,7 @@
 		var canvas = document.getElementById(canvasId);
 		var screen = canvas.getContext('2d');
 		var gameSize = {x: canvas.width, y: canvas.height};
+		var score = 0;
 
 		this.bodies = createInvaders(this).concat([new Player(this, gameSize)]); // !!!
 
@@ -24,19 +25,18 @@
 
 	Game.prototype = {
 		update: function(){
+			var bodies = this.bodies;
+			var notCollidingWithAnything = function(b1){ // ???
+				return bodies.filter(function(b2){
+						return colliding(b1, b2)
+					}).length === 0;
+			};
+
+			this.bodies = this.bodies.filter(notCollidingWithAnything); // ???
 
 			for(var i = 0, length = this.bodies.length; i < length; i++){
 				this.bodies[i].update();
 			};
-
-			var bodies = this.bodies;
-			var notCollidingWithAnything = function(b1){ // ???
-				return bodies.filter(function(b2){
-					return colliding(b1, b2)
-				}).length === 0;
-			};
-
-			this.bodies = this.bodies.filter(notCollidingWithAnything); // ???
 		},
 
 		draw: function(screen, gameSize){
@@ -185,6 +185,7 @@
 
 	document.getElementById('start').addEventListener('click', function(){
 		new Game('screen');
+		this.blur();
 	})
 
 })();
