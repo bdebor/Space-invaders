@@ -171,4 +171,8 @@
 		new Game('screen');
 	};
 
+	document.getElementById('start').addEventListener('click', function(){
+		new Game('screen');
+	})
+
 })();
