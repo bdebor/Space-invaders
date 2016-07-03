@@ -16,6 +16,10 @@
 					screen.font = "30px Arial";
 					screen.textAlign = "center";
 					screen.fillText('Game over', gameSize.x/2, gameSize.y/2);
+				}else if(self.invadersNumber() == 0){
+					screen.font = "30px Arial";
+					screen.textAlign = "center";
+					screen.fillText('You win !', gameSize.x/2, gameSize.y/2);
 				}else{
 					self.score = (24 - self.invadersNumber());
 					displayScore(self.score);
