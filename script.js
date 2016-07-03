@@ -40,7 +40,8 @@
 			var bodies = this.bodies;
 			var notCollidingWithAnything = function(b1){ // ???
 				return bodies.filter(function(b2){
-						return colliding(b1, b2)
+						return 	colliding(b1, b2) &&
+								(b1 instanceof Bullet && b2 instanceof Bullet) == false
 					}).length === 0;
 			};
 
@@ -88,7 +89,7 @@
 		this.game = game;
 		this.size = {x: 15, y: 15};
 		// this.center = {x: gameSize.x/2, y: gameSize.y/2 - this.size.x }; // ???
-		this.center = {x: gameSize.x/2, y: gameSize.y/2};
+		this.center = {x: gameSize.x/2, y: gameSize.y - 30};
 		this.keyboarder = new Keyboarder();
 	};
 
