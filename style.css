@@ -1,0 +1,19 @@
+body{
+    text-align: center;
+    font-family: Arial;
+}
+#screen{
+    border: 1px solid #000;
+}
+.info{
+    position: absolute;
+    vertical-align: top;
+    display: inline-block;
+    margin-left: 10px;
+}
+.score-p{
+
+}
+#start{
+    display: block;
+}
