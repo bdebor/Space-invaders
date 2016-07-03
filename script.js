@@ -9,7 +9,7 @@
 		this.bodies = createInvaders(this).concat([new Player(this, gameSize)]); // !!!
 
 		var self = this; // ???
-		var count = 0;
+		// var count = 0;
 		var tick = function(){
 			//if(count == 0){
 				if(self.isGameOver()){
@@ -19,7 +19,7 @@
 				}else if(self.invadersNumber() == 0){
 					screen.font = "30px Arial";
 					screen.textAlign = "center";
-					screen.fillText('You win !', gameSize.x/2, gameSize.y/2);
+					screen.fillText('You win!', gameSize.x/2, gameSize.y/2);
 				}else{
 					self.score = (24 - self.invadersNumber());
 					displayScore(self.score);
@@ -98,6 +98,7 @@
 	};
 
 	Player.prototype = {
+
 		update: function(){
 			if(this.keyboarder.isDown(this.keyboarder.KEYS.LEFT)){
 				this.center.x -= 2;
@@ -105,13 +106,28 @@
 				this.center.x += 2;
 			}
 
-			if(this.keyboarder.isDown(this.keyboarder.KEYS.SPACE)){
-				var bullet = new Bullet(
-					{x: this.center.x, y: this.center.y - this.size.y/2 - 2},/* - 2 for colliding */
-					{x: 0, y: -6}
-				); // ???
-				this.game.addBody(bullet);
+			if(firstShoot == false){
+				var can = canPlayerShoot();
 			}
+
+			if(this.keyboarder.isDown(this.keyboarder.KEYS.SPACE)){
+				if(firstShoot){
+					this.shoot();
+					firstShoot = false;
+				}
+				if(can){
+					this.shoot();
+					count = 0;
+				}
+			}
+		},
+
+		shoot: function(){
+			var bullet = new Bullet(
+				{x: this.center.x, y: this.center.y - this.size.y/2 - 2},/* - 2 for colliding */
+				{x: 0, y: -6}
+			); // ???
+			this.game.addBody(bullet);
 		}
 	};
 
@@ -207,6 +223,16 @@
 		$score.innerHTML = score;
 	};
 
+	var firstShoot = true;
+	var count = 0;
+	var canPlayerShoot = function(){
+		if(count == 20) {
+			return true;
+		}else{
+			count++;
+		}
+	};
+
 	window.onload = function(){
 		new Game('screen');
 	};
@@ -215,5 +241,7 @@
 		new Game('screen');
 		this.blur();
 	})
+
+
 
 })();
