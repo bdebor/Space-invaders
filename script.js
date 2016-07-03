@@ -9,18 +9,28 @@
 		this.bodies = createInvaders(this).concat([new Player(this, gameSize)]); // !!!
 
 		var self = this; // ???
+		var count = 0;
 		var tick = function(){
-			if(self.isGameOver()){
-				screen.font = "30px Arial";
-				screen.textAlign = "center";
-				screen.fillText('Game over', gameSize.x/2, gameSize.y/2);
-			}else{
-				self.score = (24 - self.invadersNumber());
-				displayScore(self.score);
-				self.update();
-				self.draw(screen, gameSize);
-				requestAnimationFrame(tick);
-			}
+			//if(count == 0){
+				if(self.isGameOver()){
+					screen.font = "30px Arial";
+					screen.textAlign = "center";
+					screen.fillText('Game over', gameSize.x/2, gameSize.y/2);
+				}else{
+					self.score = (24 - self.invadersNumber());
+					displayScore(self.score);
+					self.update();
+					self.draw(screen, gameSize);
+					requestAnimationFrame(tick);
+				}
+			//	count++;
+			//}else if(count == 1){
+			//	count = 0;
+			//}
+			//else{
+			//	count++;
+			//}
+			// requestAnimationFrame(tick);
 		};
 		tick();
 	};
