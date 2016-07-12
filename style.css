@@ -1,6 +1,6 @@
 body{
     text-align: center;
-    font-family: Arial;
+    font-family: Arial, sans-serif;
 }
 #screen{
     border: 1px solid #000;
@@ -10,9 +10,6 @@ body{
     vertical-align: top;
     display: inline-block;
     margin-left: 10px;
-}
-.score-p{
-
 }
 #start{
     display: block;
